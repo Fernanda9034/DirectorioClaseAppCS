@@ -56,7 +56,25 @@ namespace DirectorioClaseAppCS
                 StreamReader lector = new StreamReader(e.Node.Name);
                 richTextBox1.Text = lector.ReadToEnd();
                 lector.Close();
+                pictureBox1.Visible = false;
+                richTextBox1.Visible = true;
             }
+            if (e.Node.Name.EndsWith("png") || e.Node.Name.EndsWith("jpg") || e.Node.Name.EndsWith("gif"))
+            {
+                pictureBox1.Load(e.Node.Name);
+                pictureBox1.Visible = true;
+                richTextBox1.Visible = false;
+            }
+        }
+        private void frmMain_Load(object sender, TreeViewEventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(e.Node.Name);
+        }
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            frmPreview f = new frmPreview();
+            f.PreviewImage = pictureBox1.Image;
+            f.Show();
         }
     }
 }
